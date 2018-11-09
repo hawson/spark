@@ -97,7 +97,8 @@ class Sparkline:
             string += ' {:.2f}'.format(self.spark[-1])
         if show_range:
             string += ' ({:.1f}-{:.1f})'.format(self.minNone(self.spark),self.maxNone(self.spark))
-        print(string, end=ender)
+        sys.stdout.write(string + '\033[K\r')
+        #print(string, end=ender)
 
 
     def demo(self, demotype=0):
@@ -153,18 +154,21 @@ if __name__=='__main__':
 
 
         sparkline = Sparkline(width=showwidth)
-        while True:
-            try:
+
+        #hide cursor
+        sys.stdout.write("\033[?25l")
+        try:
+            while True:
                 newdata = sys.stdin.readline()
-            except KeyboardInterrupt:
-                print("keypressed")
-                break
 
-            if not newdata:
-                break
+                sparkline.shift( float(newdata))
+                sparkline.show(ender='\r', value = showvalue, show_range=showvalue )
 
-            sparkline.shift( float(newdata))
-            sparkline.show(ender='\r', value = showvalue, show_range=showvalue )
+        except KeyboardInterrupt:
+            #show cursor again
+            sys.stdout.write("\033[?25h")
+            #sys.stdout.write("\033[?25l" + '\n')
+
 
 
 
