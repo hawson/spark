@@ -158,7 +158,7 @@ if __name__=='__main__':
 
     # data on the CLI?
     elif len(sys.argv) > 1:
-        data = list ( map ( int, sys.argv[1:]))
+        data = sys.argv[1:]
         sparkline = Sparkline(data, width=len(data))
 
     # demo otherwise
