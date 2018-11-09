@@ -16,10 +16,8 @@ class Sparkline:
         self.max = None
 
         if data:
-            l = len(data)
-            ll = list(data)
-            i=width-l
-            self.spark[i:] = data
+            i = width-len(data)
+            self.spark[i:] = list(map(float, data))
 
             self.max = self.maxNone(self.spark)
             self.min = self.minNone(self.spark)
