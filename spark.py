@@ -5,9 +5,14 @@
 class Sparkline:
     # width is the size of the sparkline as shown on the terminal
 
+    nullchar = '-'
+
     # 1 empty/None/Null  + 8 bars
-    bars = [ '-', '_', '▁', '▂', '▃', '▄', '▅', '▆', '▇', '█' ]
-    bars = [ '-', ' ', '▁', '▂', '▃', '▄', '▅', '▆', '▇', '█' ]
+    bars = [ nullchar, '_', '▁', '▂', '▃', '▄', '▅', '▆', '▇', '█' ]
+    bars = [ nullchar, ' ', '▁', '▂', '▃', '▄', '▅', '▆', '▇', '█' ]
+
+
+
 
     def __init__(self, data=None, width=20):
         self.spark = [ None ] * width
