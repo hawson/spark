@@ -24,9 +24,9 @@ Note the two `-` values shown:  they are due to the "foo" and "bar" strings in t
 Spark will attempt to read from a pipe and show a "scrolling" feed of the data.  Any floting point number should be acceptible.  This snippet, for example, dumps ping times into spark, and shows "scrolls" the data with each new datapoint.
 
     ping -n google.com | awk '/^[0-9]/{sub("time=","",$7); print $7; fflush()}' | ./spark.py
-    ▁▁▂▄▃▅▃▃▁▆ ▆▁ ▄▃▄▁▂▂▂▂▅▅▄█▆▅▁▄▄▄▂▅▃▁▇▃▃▂ 3.090
+    ▁▃ ▃▂▁▁   █▁▁ ▁▂▄ ▂ ▁ ▂▆ ▁▆▁▁▃   ▁ ▁▂    3.00 (3.0-3.7)
 
-The number at the end is the most recent data entered.
+The numbers at the end of the line are the current data, and min-max ranges)
 
 
 === Demo ===    

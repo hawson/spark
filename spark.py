@@ -91,10 +91,12 @@ class Sparkline:
         return output
 
 
-    def show(self, ender='\n', value = False):
+    def show(self, ender='\n', value = False, show_range=False):
         string = self.__str__()
         if value:
             string += ' {:.2f}'.format(self.spark[-1])
+        if show_range:
+            string += ' ({:.1f}-{:.1f})'.format(self.minNone(self.spark),self.maxNone(self.spark))
         print(string, end=ender)
 
 
@@ -162,7 +164,7 @@ if __name__=='__main__':
                 break
 
             sparkline.shift( float(newdata))
-            sparkline.show(ender='\r', value = showvalue )
+            sparkline.show(ender='\r', value = showvalue, show_range=showvalue )
 
 
 
