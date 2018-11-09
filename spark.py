@@ -36,7 +36,7 @@ class Sparkline:
         #print(self.spark)
 
     def shift(self,newvalue):
-        value = float_or_none(newvalue)
+        value = self.float_or_none(newvalue)
         if newvalue is not None:
             if self.min is None or newvalue < self.min:
                self.min = value
