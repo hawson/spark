@@ -12,6 +12,11 @@ class Sparkline:
     bars = [ nullchar, ' ', '▁', '▂', '▃', '▄', '▅', '▆', '▇', '█' ]
 
 
+    def float_or_none(self,value):
+        try:
+            return float(value)
+        except ValueError:
+            return None
 
 
     def __init__(self, data=None, width=20):
@@ -22,7 +27,8 @@ class Sparkline:
 
         if data:
             i = width-len(data)
-            self.spark[i:] = list(map(float, data))
+
+            self.spark[i:] = list(map(self.float_or_none, data))
 
             self.max = self.maxNone(self.spark)
             self.min = self.minNone(self.spark)
@@ -30,11 +36,12 @@ class Sparkline:
         #print(self.spark)
 
     def shift(self,newvalue):
+        value = float_or_none(newvalue)
         if newvalue is not None:
             if self.min is None or newvalue < self.min:
-               self.min = newvalue
+               self.min = value
             if self.max is None or newvalue > self.max:
-                self.max = newvalue
+                self.max = value
 
         self.spark[:] = self.spark[1:] + [newvalue]
 
