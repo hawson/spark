@@ -38,12 +38,28 @@ class Sparkline:
     def shift(self,newvalue):
         value = self.float_or_none(newvalue)
         if newvalue is not None:
+
             if self.min is None or newvalue < self.min:
                self.min = value
+
             if self.max is None or newvalue > self.max:
                 self.max = value
 
+        findMin = findMax = False
+
+        if self.spark[0] == self.min:
+            findMin=True
+
+        if self.spark[0] == self.max:
+            findMax=True
+
         self.spark[:] = self.spark[1:] + [newvalue]
+
+        if findMax:
+            self.max=self.maxNone(self.spark)
+
+        if findMin:
+            self.min=self.minNone(self.spark)
 
 
 
@@ -54,7 +70,8 @@ class Sparkline:
         return min(x for x in L if x is not None)
 
     def data(self):
-        minmax = '({},{})'.format(self.minNone(self.spark), self.maxNone(self.spark))
+        minmax = '({},{})'.format(self.min, self.max)
+        #minmax = '({},{})'.format(self.minNone(self.spark), self.maxNone(self.spark))
         return minmax + '['+ ', '. join( list ( map((lambda x: "None" if x is None else str(x)) ,  self.spark ) )) +']'
 
         #return '('+ str(min(self.spark)) + ',' +str(max(self.spark)) + ')' \
@@ -75,7 +92,8 @@ class Sparkline:
 
         div = len(self.bars)-2 # take one off for the 'empty'
 
-        return int(self.scale_number(x, 0, div, self.minNone(self.spark), self.maxNone(self.spark)))+1
+        return int(self.scale_number(x, 0, div, self.min, self.max))+1
+        #return int(self.scale_number(x, 0, div, self.minNone(self.spark), self.maxNone(self.spark)))+1
 
     def __str__(self):
 
@@ -96,7 +114,8 @@ class Sparkline:
         if value:
             string += ' {:.2f}'.format(self.spark[-1])
         if show_range:
-            string += ' ({:.1f}-{:.1f})'.format(self.minNone(self.spark)-0.1,self.maxNone(self.spark))
+            string += ' ({:.1f}-{:.1f})'.format(self.min-0.1,self.max)
+            #string += ' ({:.1f}-{:.1f})'.format(self.minNone(self.spark)-0.1,self.maxNone(self.spark))
         sys.stdout.write(string + '\033[K\r')
         #print(string, end=ender)
 
