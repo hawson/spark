@@ -96,7 +96,7 @@ class Sparkline:
         if value:
             string += ' {:.2f}'.format(self.spark[-1])
         if show_range:
-            string += ' ({:.1f}-{:.1f})'.format(self.minNone(self.spark),self.maxNone(self.spark))
+            string += ' ({:.1f}-{:.1f})'.format(self.minNone(self.spark)-0.1,self.maxNone(self.spark))
         sys.stdout.write(string + '\033[K\r')
         #print(string, end=ender)
 
