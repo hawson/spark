@@ -66,10 +66,16 @@ class Sparkline:
 
 
     def maxNone(self, L):
-        return max(x for x in L if x is not None)
+        if L:
+            return max(x for x in L if x is not None)
+        else:
+            return None
 
     def minNone(self, L):
-        return min(x for x in L if x is not None)
+        if L:
+            return min(x for x in L if x is not None)
+        else:
+            return None
 
     def data(self):
         minmax = '({},{})'.format(self.min, self.max)
