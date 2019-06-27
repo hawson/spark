@@ -15,6 +15,8 @@ class Sparkline:
     def float_or_none(self,value):
         try:
             return float(value)
+        except TypeError:
+            return None
         except ValueError:
             return None
 
